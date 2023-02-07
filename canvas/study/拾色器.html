@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #box{
+      width: 300px;
+      height: 150px;
+      display: flex;
+      justify-content: space-between;
+    }
+    #hovered-color{
+      width: 100px;
+      height: 100px;
+    }
+    #selected-color{
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="947" height="533"></canvas>
+  
+  <div id="box">
+    <div>
+      <p>hovered-color</p>
+      <div id="hovered-color"></div>
+    </div>
+    <div>
+      <p>selected-color</p>
+      <div id="selected-color"></div>
+    </div>
+  </div>
+  <script>
+
+    // 加载图片
+    var img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src =
+      "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3747c10c114f491daf72aa2b7e971c42~tplv-k3u1fbpfcp-zoom-crop-mark:1304:1304:1304:734.awebp?";
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0);
+      img.style.display = "none";
+    };
+
+    // 颜色展示区块
+    var hoveredColor = document.getElementById("hovered-color");
+    var selectedColor = document.getElementById("selected-color");
+
+    // 获取像素数据
+    function pick(event, target) {
+      let pixel = ctx.getImageData(event.offsetX, event.offsetY, 1, 1).data;
+      console.log(pixel)
+      let rgba = `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${pixel[3] / 255})`;
+      target.style.background = rgba;
+      target.textContent = rgba;
+    }
+
+    // mousemove
+    canvas.addEventListener("mousemove", function (event) {
+      pick(event, hoveredColor);
+    });
+
+    // mousedown
+    canvas.addEventListener("mousedown", function (event) {
+      pick(event, selectedColor);
+    });
+
+  </script>
+</body>
+</html>

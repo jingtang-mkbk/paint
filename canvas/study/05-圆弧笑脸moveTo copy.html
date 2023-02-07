@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+
+  <script>
+    const c1 = document.getElementById('c1')    
+    const context = c1.getContext('2d');
+    
+    // // 脸
+    // context.beginPath();
+    // context.arc(100, 100, 50, 0, Math.PI * 2, true);
+    // context.stroke();
+    // context.closePath();
+
+    // // 嘴
+    // context.beginPath();
+    // context.arc(100, 100, 28, Math.PI / 3, Math.PI*2 /3, false);
+    // context.stroke();
+    // context.closePath();
+
+    // // 眼
+    // context.beginPath();
+    // context.arc(80, 90, 5, 0, Math.PI, true);
+    // context.stroke();
+    // context.closePath();
+    // context.beginPath();
+    // context.arc(120, 90, 5, 0, Math.PI, true);
+    // context.stroke();
+    // context.closePath();
+
+    // context.moveTo(x, y);
+    
+    context.beginPath();
+    context.arc(100, 100, 50, 0, Math.PI * 2, true);
+    context.moveTo(128, 100);
+    
+
+    // 嘴
+    context.arc(100, 100, 28, 0, Math.PI, false);
+    context.moveTo(85, 90);
+    
+
+    // 眼
+    context.arc(80, 90, 5, 0, Math.PI, true);
+    context.moveTo(125, 90);
+    
+    context.arc(120, 90, 5, 0, Math.PI, true);
+
+    context.stroke();
+    context.closePath();
+
+  </script>
+</body>
+</html>

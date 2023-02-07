@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+
+  <script>
+    const state = [
+      { num: 80 },
+      { num: 100 },
+      { num: 60 },
+      { num: 130 },
+      { num: 170 },
+      { num: 160 },
+      { num: 150 },
+    ]
+    class LineChart {
+      constructor(xOrigin, yOrigin, xWidth, yHeight) {
+        this.xTxt = ['1', '2', '3', '4', '5', '6', '7']
+        this.yTxt = ['50', '100', '150']
+        this.c1 = document.getElementById('c1');
+        this.context = c1.getContext('2d');
+        this.context.lineWidth = 1;
+        this.context.lineCap = 'square';
+        this.xOrigin = xOrigin;
+        this.yOrigin = yOrigin;
+        this.xWidth = xWidth;
+        this.yHeight = yHeight;
+        this.scaleWidth = 50
+      }
+
+      // 折线图
+      Line = (data) => {
+        this.context.moveTo(this.xOrigin + this.scaleWidth, this.yOrigin - data[0].num)
+
+        data.forEach((it, index) => {
+          if (index >= 1)
+            this.context.lineTo(this.xOrigin + this.scaleWidth * (index + 1), this.yOrigin - it.num);
+        })
+        this.context.stroke();
+      }
+
+
+      // 显示刻度，横纵坐标
+      showLineOrScale = (line = true, scale = false) => {
+        const arrowWidth = 10
+        const arrowHeight = 5
+        const scaleHegiht = 5
+        const txtHeight = 20
+
+        // 是否显示坐标
+        if (line) {
+          // x轴
+          this.context.moveTo(this.xOrigin, this.yOrigin);
+          this.context.lineTo(this.xWidth + this.xOrigin, this.yOrigin);
+          // y轴
+          this.context.moveTo(this.xOrigin, this.yOrigin);
+          this.context.lineTo(this.xOrigin, this.yOrigin - this.yHeight);
+          this.context.strokeStyle = 'black';
+          this.context.stroke();
+          // x轴箭头
+          this.context.moveTo(this.xWidth + this.xOrigin + arrowWidth, this.yOrigin);
+          this.context.lineTo(this.xWidth + this.xOrigin - arrowWidth, this.yOrigin - arrowHeight);
+          this.context.lineTo(this.xWidth + this.xOrigin - arrowWidth, this.yOrigin + arrowHeight);
+          // y轴箭头
+          this.context.moveTo(this.xOrigin, this.yOrigin - this.yHeight - arrowWidth);
+          this.context.lineTo(this.xOrigin - arrowHeight, this.yOrigin - this.yHeight + arrowWidth);
+          this.context.lineTo(this.xOrigin + arrowHeight, this.yOrigin - this.yHeight + arrowWidth);
+          this.context.fillStyle = 'black';
+          this.context.fill();
+        }
+
+        // 是否显示刻度
+        if (scale) {
+          this.context.font = '12px 微软雅黑';
+          this.context.textAlign = 'center';
+          this.context.textBaseline = 'bottom';
+          // x轴刻度
+          this.xTxt.forEach((it, index) => {
+            this.context.moveTo(this.xOrigin + this.scaleWidth * (index + 1), this.yOrigin);
+            this.context.lineTo(this.xOrigin + this.scaleWidth * (index + 1), this.yOrigin + scaleHegiht);
+            this.context.fillText(it, this.xOrigin + this.scaleWidth * (index + 1), this.yOrigin + txtHeight);
+          })
+          // y轴刻度
+          this.yTxt.forEach((it, index) => {
+            this.context.moveTo(this.xOrigin, this.yOrigin - this.scaleWidth * (index + 1));
+            this.context.lineTo(this.xOrigin - scaleHegiht, this.yOrigin - this.scaleWidth * (index + 1));
+            this.context.fillText(it, this.xOrigin - txtHeight, this.yOrigin - this.scaleWidth * (index + 1) + 5);
+          })
+
+          this.context.stroke();
+        }
+      }
+    }
+
+    const b = new LineChart(100, 300, 400, 200)
+    b.showLineOrScale(true, true)
+    b.Line(state)
+  </script>
+</body>
+
+</html>

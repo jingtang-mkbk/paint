@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d');
+    
+    context.beginPath();
+    context.moveTo(300, 200);
+    
+    context.bezierCurveTo(350, 150, 400, 200, 300, 280);
+    context.bezierCurveTo(200, 200, 250, 150, 300, 200);
+    
+    context.stroke();
+    
+    context.closePath();
+  </script>
+</body>
+</html>

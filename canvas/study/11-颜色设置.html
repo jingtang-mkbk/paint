@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d');
+    
+    // 全局透明度
+    context.globalAlpha = 0.5;
+
+    // 爱心
+    const heartPath = new Path2D()
+    heartPath.moveTo(300, 200);
+    heartPath.bezierCurveTo(350, 150, 400, 200, 300, 280);
+    heartPath.bezierCurveTo(200, 200, 250, 150, 300, 200);
+
+    context.strokeStyle = 'blue';
+    context.stroke(heartPath);
+    
+    // 对话框
+    const chatPath = new Path2D()
+    chatPath.moveTo(200, 300);
+    chatPath.quadraticCurveTo(150, 300, 150, 200);
+    chatPath.quadraticCurveTo(150, 100, 300, 100);
+    chatPath.quadraticCurveTo(450, 100, 450, 200);
+    chatPath.quadraticCurveTo(450, 300, 250, 300);
+    chatPath.quadraticCurveTo(250, 350, 150, 350);
+    chatPath.quadraticCurveTo(200, 350, 200, 300);
+
+    context.fillStyle='rgba(255, 200, 200, 0.3)';
+    context.stroke(chatPath);
+    context.fill(heartPath);
+
+    // 折线  M moveto 10 10       horizon   vertical  z回原点
+    const polyLine = new Path2D("M10 10 h 80 v 80 h -80 z")
+    context.stroke(polyLine);
+    
+    // 矩形
+    context.fillRect(280, 180, 40, 40);
+    
+  </script>
+</body>
+</html>

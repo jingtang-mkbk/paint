@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input{
+      width: 500px;
+      height: 10px;
+    }
+    [type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+      outline: 0;
+      background-color: transparent;
+      width: 500px;
+    }
+    [type="range"]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: #eee;
+    }
+    [type="range" i]::-webkit-slider-container {
+      height: 20px;
+      overflow: hidden;
+    }
+    [type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #f44336;
+      border: 1px solid transparent;
+      margin-top: -6px;
+      border-image: linear-gradient(#f44336,#f44336) 0 fill / 8 20 8 0 / 0px 0px 0 2000px;
+    }
+  </style>
+</head>
+<body>
+  <input type="range" value="90" step="any">
+  <script>
+    const arr = [1,2,3,1,2,3,4,5,7]
+
+    // const A = new Set([...arr])
+    // console.log(A)
+
+    console.log(Object.prototype.toString(arr))
+  </script>
+</body>
+</html>

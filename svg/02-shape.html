@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <svg width="200" height="250" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- x, y 坐标  -->
+    <rect x="10" y="10" width="30" height="30" stroke="black" fill="transparent" stroke-width="5" />
+    <!-- rx, ry圆角的半径，默认为0 -->
+    <rect x="60" y="10" rx="10" ry="10" width="30" height="30" stroke="black" fill="transparent" stroke-width="5" />
+  
+    <!-- cx, cy 圆心半径    r 圆的半径 -->
+    <circle cx="25" cy="75" r="20" stroke="red" fill="transparent" stroke-width="5" />
+    
+    <!-- 椭圆  cx, cy 圆心位置        rx, ry 圆的x,y半径 -->
+    <ellipse cx="75" cy="75" rx="20" ry="5" stroke="red" fill="transparent" stroke-width="5" />
+  
+    <!-- x1,y1起点 x2,y2终点 -->
+    <line x1="10" x2="50" y1="110" y2="150" stroke="orange" fill="transparent" stroke-width="5" />
+    
+    <!-- 多组x, y坐标 -->
+    <polyline points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145" stroke="orange" fill="transparent"
+      stroke-width="5" />
+  
+    <!-- 类似折线，但最后一个点处自动回到第一个点 -->
+    <polygon points="50 160 55 180 70 180 60 190 65 205 50 195 35 205 40 190 30 180 45 180" stroke="green"
+      fill="transparent" stroke-width="5" />
+  
+    <!-- 
+      M x y = moveto，移动笔触到 (x,y)
+      L x y = lineto，会将当前位置和新位置 (x,y) 连线
+      H x = horizontal lineto，在水平方向上移动并连线
+      V y = vertical lineto，在垂直方向上移动并连线
+      C x1 y1, x2 y2, x y = curveto，三次贝塞尔曲线
+
+      (x1,y1) 是起点的控制点
+      (x2,y2) 是终点的控制点
+      (x,y) 是曲线的终点
+
+      S x2 y2, x y = smooth curveto，简写的三次贝塞尔曲线
+
+      如果跟在一个 C 或 S 命令后面，则它的第一个控制点会被假设成前一个命令曲线的第二个控制点的中心对称点
+      如果单独使用，即前面没有 C 或 S 命令，那当前点将作为第一个控制点。
+
+      Q x1 y1, x y = quadratic Bézier curve，二次贝塞尔曲线
+
+      (x1,y1) 是起点
+      (x,y) 是曲线的终点
+
+      T x y = smooth quadratic Bézier curveto，简写的二次贝塞尔曲线
+
+      如果跟在一个 Q 或 T 命令后面，它会通过前一个控制点，推断出一个新的控制点
+      如果单独使用，那么控制点就会被认为和终点是同一个点，即将是一条直线。
+
+      A = elliptical Arc，弧形，详情见下方
+      Z = closepath，闭合路径，从当前点画一条直线到路径的起点，不区分大小写
+    -->
+    <path d="M20,230 Q40,205 50,230 T90,230" fill="none" stroke="blue" stroke-width="5" />
+  </svg>
+  
+</body>
+</html>

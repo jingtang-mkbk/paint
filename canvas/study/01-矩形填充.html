@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400" style="width: 600px; height: 400px;"></canvas>
+
+  <script>
+    const c1 = document.getElementById('c1')
+    // 获取画笔，上下文对象
+    const ctx = c1.getContext('2d')
+    // x, y, width, height
+    ctx.fillRect(100, 200, 300, 300)
+
+    console.log(ctx)
+  </script>
+</body>
+</html>
