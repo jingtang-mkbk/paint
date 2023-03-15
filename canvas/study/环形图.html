@@ -55,38 +55,46 @@
     var x0 = 300,
       y0 = 300;
     var radius = 200;
-    // 从-90度开始绘制
-    for (var i = 0; i < data.length; i++) {
-      ctx.beginPath(); //因为设置不同的颜色，所以每次绘制完起一个新状态
+
+    const func = () => {
+      ctx.clearRect(0,0,600,600)
+      // 从-90度开始绘制
+      for (var i = 0; i < data.length; i++) {
+        ctx.beginPath(); //因为设置不同的颜色，所以每次绘制完起一个新状态
+        ctx.moveTo(x0, y0);
+        //当前扇形的角度
+        var angle = data[i].value / 185 * 360;
+        ctx.fillStyle = data[i].color;
+        //开始从 tempAngle绘制
+        var startAngle = tempAngle * Math.PI / 180;
+        //从tempAngle绘制到 我们自己的angle区域
+        var endAngle = (tempAngle + angle) * Math.PI / 180;
+        //参数： x0，y0 圆心坐标，  radius：半径
+        // startAngle：开始绘制的弧度
+        // endAngle：结束绘制的弧度！！
+        ctx.arc(x0, y0, radius, startAngle, endAngle);
+        ctx.fill();
+        tempAngle += angle; //下一次绘制的起始角度
+      }
+
+      //实现环形图
+      ctx.beginPath();
       ctx.moveTo(x0, y0);
-      //当前扇形的角度
-      var angle = data[i].value / 185 * 360;
-      ctx.fillStyle = data[i].color;
-      //开始从 tempAngle绘制
-      var startAngle = tempAngle * Math.PI / 180;
-      //从tempAngle绘制到 我们自己的angle区域
-      var endAngle = (tempAngle + angle) * Math.PI / 180;
-      //参数： x0，y0 圆心坐标，  radius：半径
-      // startAngle：开始绘制的弧度
-      // endAngle：结束绘制的弧度！！
-      ctx.arc(x0, y0, radius, startAngle, endAngle);
+      ctx.fillStyle = '#fff';
+      ctx.arc(x0, y0, radius / 1.6, 0, 2 * Math.PI);
       ctx.fill();
-      tempAngle += angle; //下一次绘制的起始角度
     }
 
-    //实现环形图
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.fillStyle = '#fff';
-    ctx.arc(x0, y0, radius / 1.6, 0, 2 * Math.PI);
-    ctx.fill();
+    func()
 
-    canvas.addEventListener('click', e=>{
+    canvas.addEventListener('mousemove', e=>{
       const x = Math.abs(e.offsetX - 300)
       const y = Math.abs(e.offsetY - 300)
       const distant = Math.sqrt(x * x + y * y)
 
       if (distant<=200 && distant>=125){
+        func()
+
         console.log('环形内');
         ctx.save();
         var padding = 10;
@@ -105,7 +113,6 @@
         ctx.fillText('txtLoc', e.offsetX + padding, e.offsetY + padding);
 
         ctx.restore();
-
       }
     })
     
