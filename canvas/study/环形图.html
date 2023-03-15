@@ -11,6 +11,12 @@
       padding: 0;
       margin: 0;
     }
+    div{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+    }
     canvas {
       border: 1px solid red;
     }
@@ -18,7 +24,9 @@
 </head>
 
 <body>
-  <canvas width="500px" height="500px">
+  <div>
+    <canvas width="500px" height="500px">
+  </div>
 
   </canvas>
 
@@ -70,8 +78,38 @@
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.fillStyle = '#fff';
-    ctx.arc(x0, y0, radius / 1.5, 0, 2 * Math.PI);
+    ctx.arc(x0, y0, radius / 1.6, 0, 2 * Math.PI);
     ctx.fill();
+
+    canvas.addEventListener('click', e=>{
+      const x = Math.abs(e.offsetX - 300)
+      const y = Math.abs(e.offsetY - 300)
+      const distant = Math.sqrt(x * x + y * y)
+
+      if (distant<=200 && distant>=125){
+        console.log('环形内');
+        ctx.save();
+        var padding = 10;
+        var font = "16px arial";
+        ctx.font = font;
+        ctx.textBaseline = 'bottom';
+        ctx.fillStyle = 'yellow';
+
+        //绘制ToolTip背景
+        var width = ctx.measureText('txtLoc').width;
+        var height = parseInt(font, 10);
+        ctx.fillRect(e.offsetX, e.offsetY - height, width + padding * 2, height + padding * 2);
+
+        //绘制ToolTip文字
+        ctx.fillStyle = '#000';
+        ctx.fillText('txtLoc', e.offsetX + padding, e.offsetY + padding);
+
+        ctx.restore();
+
+      }
+    })
+    
+    
   </script>
 </body>
 

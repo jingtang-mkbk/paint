@@ -36,6 +36,7 @@
     //注：使用这个函数，需要给Canvas元素的position设为absolute。
     //要判断事件对象发生的位置，事件对象e的layerX和layerY属性表示Canvas内部坐标系中的坐标
     function getEventPosition(ev) {
+      console.log('e', ev);
       var x, y;
       if (ev.layerX || ev.layerX == 0) {
         x = ev.layerX;
