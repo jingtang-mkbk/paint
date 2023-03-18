@@ -10,6 +10,20 @@
   <canvas id="c1" width="600" height="400"></canvas>
 
   <script>
+    var data = [{
+      "value": 100,
+      "color": "red"
+    }, {
+      "value": 50,
+      "color": "blue"
+    }, {
+      "value": 15,
+      "color": "green"
+    }, {
+      "value": 20,
+      "color": "#ccc"
+    }];
+
     const c1 = document.getElementById('c1')    
     const context = c1.getContext('2d');
     
@@ -23,6 +37,14 @@
     context.arc(100, 100, 50, 0, Math.PI / 2, true);
     context.stroke();
     context.closePath();
+
+    context.beginPath();
+    context.fillStyle = 'red';
+    
+    context.arc(200, 300, 50, 0, -Math.PI / 2, true);
+    context.stroke();
+    context.closePath();
+
   </script>
 </body>
 </html>

@@ -72,7 +72,7 @@
         //参数： x0，y0 圆心坐标，  radius：半径
         // startAngle：开始绘制的弧度
         // endAngle：结束绘制的弧度！！
-        ctx.arc(x0, y0, radius, startAngle, endAngle);
+        ctx.arc(x0, y0, radius, -startAngle, -endAngle, true);
         ctx.fill();
         tempAngle += angle; //下一次绘制的起始角度
       }
@@ -84,10 +84,10 @@
       ctx.arc(x0, y0, radius / 1.6, 0, 2 * Math.PI);
       ctx.fill();
     }
-
     func()
 
     canvas.addEventListener('mousemove', e=>{
+      let angle  = 0;
       const x = Math.abs(e.offsetX - 300)
       const y = Math.abs(e.offsetY - 300)
       const distant = Math.sqrt(x * x + y * y)
@@ -97,26 +97,51 @@
 
         console.log('环形内');
         ctx.save();
-        var padding = 10;
+        var padding = 20;
         var font = "16px arial";
         ctx.font = font;
         ctx.textBaseline = 'bottom';
-        ctx.fillStyle = 'yellow';
+        ctx.fillStyle = '#fff';
 
         //绘制ToolTip背景
-        var width = ctx.measureText('txtLoc').width;
+        // var width = ctx.measureText('txtLoc').width;
         var height = parseInt(font, 10);
-        ctx.fillRect(e.offsetX, e.offsetY - height, width + padding * 2, height + padding * 2);
+        ctx.shadowColor = "rgba(0,0,0,0.6)";
+        ctx.shadowBlur = 15;
+        ctx.fillRect(e.offsetX+20, e.offsetY - height, 60 + padding * 2, height + padding * 2);
 
-        //绘制ToolTip文字
-        ctx.fillStyle = '#000';
-        ctx.fillText('txtLoc', e.offsetX + padding, e.offsetY + padding);
+        angle = Math.atan(y / x) * 180 / Math.PI
+        if (e.offsetX >= 300 && e.offsetY <= 300){
+          angle = angle.toFixed(2)
+        } else if (e.offsetX < 300 && e.offsetY <= 300) {
+          angle = (180 - angle).toFixed(2)
+        } else if (e.offsetX < 300 && e.offsetY > 300) {
+          angle = (angle + 180).toFixed(2)
+        } else if (e.offsetX >= 300 && e.offsetY > 300) {
+          angle = (360 - angle).toFixed(2)
+        }
+
+        let temp = 0
+        data.forEach(it => {
+          const ag = it.value/sum * 360
+          const start = temp
+          const end = temp + ag
+          // console.log(start);
+
+          if (angle>=start && angle < end){
+            ctx.fillStyle = '#000';
+            ctx.fillText(it.color, e.offsetX + 20 + padding, e.offsetY + padding);
+            console.log(it.color)
+          }
+          temp += ag
+        })
 
         ctx.restore();
-      }
+      } else {
+        ctx.clearRect(0, 0, 600, 600)
+        func()
+      } 
     })
-    
-    
   </script>
 </body>
 
